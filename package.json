@@ -1,0 +1,20 @@
+{
+  "name": "opsgenie-slack-sync",
+  "version": "1.0.0",
+  "description": "Integrate opsgenie roster with daily slack message and sync slack support group membership",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "testfile": "tsx src/testOpsgenie.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "opsgenie-sdk": "^0.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.3.2"
+  }
+}

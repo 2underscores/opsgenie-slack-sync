@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { config } from './config';
+import { config } from './config.js';
+import * as url from 'url'
+
+// TODO: Turn into a service
 
 async function fetchOncallJsm() {
   // https://developer.atlassian.com/cloud/jira/service-desk-ops/rest/v2/intro/
@@ -36,5 +39,20 @@ async function fetchOncallOpsgenie() {
   console.log({ platOncall });
 }
 
-fetchOncallOpsgenie();
-fetchOncallJsm();
+export const getAllSchedules = async () => {
+  const BASE_URL = config.opsgenie.baseUrl
+  const API_KEY = config.opsgenie.apiKey
+
+  const headers = {
+    'Authorization': `GenieKey ${API_KEY}`,
+    'Accept': 'application/json'
+  }
+
+  return (await axios.get(`${BASE_URL}/v2/schedules`, { headers })).data.data
+}
+
+if (url.fileURLToPath(import.meta.url) === process.argv[1]) {
+  // eslint-disable-next-line es-x/no-top-level-await
+  await fetchOncallOpsgenie();
+  await fetchOncallJsm();
+}

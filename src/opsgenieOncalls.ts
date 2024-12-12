@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { config } from './config';
 
-// Resources
-// https://docs.opsgenie.com/docs
-// https://developer.atlassian.com/cloud/jira/service-desk-ops/rest/v2/intro/
-
 async function fetchOncallJsm() {
+  // https://developer.atlassian.com/cloud/jira/service-desk-ops/rest/v2/intro/
   const BASE_URL = config.jsm.baseUrl
   const API_KEY = config.jsm.apiKey
   const PLATFORM_SCHED_NAME = config.scheduleName
@@ -23,6 +20,7 @@ async function fetchOncallJsm() {
 }
 
 async function fetchOncallOpsgenie() {
+  // https://docs.opsgenie.com/docs
   const BASE_URL = config.opsgenie.baseUrl
   const API_KEY = config.opsgenie.apiKey
   const PLATFORM_SCHED_NAME = config.scheduleName

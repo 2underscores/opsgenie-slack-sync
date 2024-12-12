@@ -51,6 +51,19 @@ export const getAllSchedules = async () => {
   return (await axios.get(`${BASE_URL}/v2/schedules`, { headers })).data.data
 }
 
+export const getOncallUserEmailFromSchedule = async (scheduleId: string) => {
+  const BASE_URL = config.opsgenie.baseUrl
+  const API_KEY = config.opsgenie.apiKey
+
+  const headers = {
+    'Authorization': `GenieKey ${API_KEY}`,
+    'Accept': 'application/json'
+  }
+
+  const oncallResp = await axios.get(`${BASE_URL}/v2/schedules/${scheduleId}/on-calls`, { headers })
+  return oncallResp.data.data.onCallParticipants[0].name
+}
+
 if (url.fileURLToPath(import.meta.url) === process.argv[1]) {
   // eslint-disable-next-line es-x/no-top-level-await
   await fetchOncallOpsgenie();

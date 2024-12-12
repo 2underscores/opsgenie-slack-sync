@@ -1,5 +1,5 @@
 import * as url from "url";
-import { getAllSchedules } from "./opsgenieOncalls.js"
+import { getAllSchedules, getOncallUserEmailFromSchedule } from "./opsgenieOncalls.js"
 
 interface ScheduleToSlackGroupChannel {
     opsgenieScheduleName: string,
@@ -7,7 +7,22 @@ interface ScheduleToSlackGroupChannel {
     slackSupportGroupName?: string,
 }
 
-async function syncSlackWithOpsgenie() {
+async function syncSlackWithOpsgenie(rosterSlackMappings: ScheduleToSlackGroupChannel[]) {
+
+    const allOpsgenieSchedules = await getAllSchedules()
+    // TODO: Parallelise
+    for (const scheduleMap of rosterSlackMappings) {
+        // Get email of user oncall for schedule
+        console.log({ schedule: scheduleMap.opsgenieScheduleName });
+        const schedule = allOpsgenieSchedules.find((sched: any) => sched.name === scheduleMap.opsgenieScheduleName)
+        const oncallEmail = await getOncallUserEmailFromSchedule(schedule.id)
+        console.log({ oncallEmail, schedule: scheduleMap.opsgenieScheduleName });
+        // 
+    }
+}
+
+if (url.fileURLToPath(import.meta.url) === process.argv[1]) {
+    // eslint-disable-next-line es-x/no-top-level-await
     const RosterSlackMappings: ScheduleToSlackGroupChannel[] = [
         {
             opsgenieScheduleName: 'Platform_schedule',
@@ -15,17 +30,5 @@ async function syncSlackWithOpsgenie() {
             slackSupportGroupName: 'Platform Support', // Or "@platform-support"?
         },
     ]
-
-    const allOpsgenieSchedules = await getAllSchedules()
-    RosterSlackMappings.forEach(rosterSlackMap => {
-        const schedule = allOpsgenieSchedules.find((sched: any) => sched.name === rosterSlackMap.opsgenieScheduleName)
-        console.log({ schedule });
-
-    })
-
-}
-
-if (url.fileURLToPath(import.meta.url) === process.argv[1]) {
-    // eslint-disable-next-line es-x/no-top-level-await
-    await syncSlackWithOpsgenie();
+    await syncSlackWithOpsgenie(RosterSlackMappings);
 }

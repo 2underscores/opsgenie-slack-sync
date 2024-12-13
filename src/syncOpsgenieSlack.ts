@@ -11,8 +11,8 @@ export interface ScheduleToSlackGroupChannel {
 }
 
 export async function syncSlackWithOpsgenie(rosterSlackMappings: ScheduleToSlackGroupChannel[]) {
-    const slack = new SlackService(config.slack.token);
-    const opsgenie = new OpsgenieService(config.opsgenie.apiKey)
+    const slack = new SlackService(config.slackKey);
+    const opsgenie = new OpsgenieService(config.opsgenieKey)
     // For each schedule given, update slack group (if provided) and send message to channel (if provided)
     for (const scheduleMap of rosterSlackMappings) {
         console.log({ schedule: scheduleMap.opsgenieScheduleName });

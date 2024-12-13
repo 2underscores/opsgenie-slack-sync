@@ -10,11 +10,11 @@ interface OnCallParticipant {
 }
 
 export class OpsgenieService {
-  private readonly opsgenieClient: AxiosInstance;
+  private readonly opsgenieAxiosClient: AxiosInstance;
 
   constructor(apikey: string) {
     // Initialize OpsGenie client
-    this.opsgenieClient = axios.create({
+    this.opsgenieAxiosClient = axios.create({
       baseURL: "https://api.opsgenie.com",
       headers: {
         'Authorization': `GenieKey ${apikey}`,
@@ -26,7 +26,7 @@ export class OpsgenieService {
   // Fetching Schedules
   async getAllSchedules(): Promise<Schedule[]> {
     try {
-      const response = await this.opsgenieClient.get('/v2/schedules');
+      const response = await this.opsgenieAxiosClient.get('/v2/schedules');
       return response.data.data;
     } catch (error) {
       console.error('Error fetching OpsGenie schedules:', error);
@@ -42,7 +42,7 @@ export class OpsgenieService {
     return schedule
   }
   async getScheduleFromId(scheduleId: string): Promise<Schedule> {
-    const response = await this.opsgenieClient.get(`/v2/schedules/${scheduleId}`);
+    const response = await this.opsgenieAxiosClient.get(`/v2/schedules/${scheduleId}`);
     return response.data.data
   }
 
@@ -51,7 +51,7 @@ export class OpsgenieService {
    */
   async getOncallFromSchedule(scheduleId: string): Promise<OnCallParticipant[]> {
     try {
-      const response = await this.opsgenieClient.get(`/v2/schedules/${scheduleId}/on-calls`);
+      const response = await this.opsgenieAxiosClient.get(`/v2/schedules/${scheduleId}/on-calls`);
       return response.data.data.onCallParticipants;
     } catch (error) {
       console.error('Error fetching OpsGenie on-call info:', error);

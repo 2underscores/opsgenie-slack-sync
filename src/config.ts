@@ -13,14 +13,8 @@ function getEnvVar(key: string): string {
 }
 
 export const config = {
-    opsgenie: {
-        apiKey: getEnvVar('API_KEY_OPSGENIE'),
-    },
-    slack: {
-        token: getEnvVar('SLACK_BOT_TOKEN'),
-        channelId: getEnvVar('SLACK_CHANNEL_ID'),
-        userGroupId: getEnvVar('SLACK_USERGROUP_ID'),
-    },
+    opsgenieKey: getEnvVar('API_KEY_OPSGENIE'),
+    slackKey: getEnvVar('SLACK_BOT_TOKEN'),
 } as const;
 
 export type Config = typeof config;

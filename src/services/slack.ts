@@ -1,4 +1,3 @@
-// src/services/slack.ts
 import { WebClient } from '@slack/web-api';
 
 export class SlackService {

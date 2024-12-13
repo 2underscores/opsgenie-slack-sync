@@ -6,10 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "sync": "tsx src/syncOpsgenieSlack.ts",
-    "watch": "nodemon --watch 'src/**/*.ts' --exec 'tsx' src/syncOpsgenieSlack.ts",
-    "test:opsgenie": "tsx src/opsgenieOncalls.ts",
-    "test:slack": "tsx src/slackUpdate.ts"
+    "sync": "tsx index.ts",
+    "test:sync:watch": "nodemon --watch '**/*.ts' --exec 'tsx' index.ts"
   },
   "dependencies": {
     "@slack/web-api": "^7.8.0",

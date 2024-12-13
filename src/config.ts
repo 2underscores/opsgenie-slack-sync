@@ -13,13 +13,7 @@ function getEnvVar(key: string): string {
 }
 
 export const config = {
-    jsm: {
-        cloudId: getEnvVar('CLOUD_ID'),
-        baseUrl: `https://api.atlassian.com/jsm/ops/api/${getEnvVar('CLOUD_ID')}`,
-        apiKey: getEnvVar('API_KEY_JSM'),
-    },
     opsgenie: {
-        baseUrl: 'https://api.opsgenie.com',
         apiKey: getEnvVar('API_KEY_OPSGENIE'),
     },
     slack: {
@@ -27,7 +21,6 @@ export const config = {
         channelId: getEnvVar('SLACK_CHANNEL_ID'),
         userGroupId: getEnvVar('SLACK_USERGROUP_ID'),
     },
-    scheduleName: 'Platform_schedule',
 } as const;
 
 export type Config = typeof config;

@@ -1,11 +1,12 @@
 # Opsgenie Slack Sync
 ## What it Does
 Sends daily messages like the below:
-![Opsgenie sync slack group](README_img/opsgenie-sync-slack-group.png)
-![opsgenie sync slack messages](README_img/opsgenie-sync-slack-messages.png)
+
+<img src="README_img/opsgenie-sync-slack-messages.png" alt="opsgenie sync slack messages" width="400">
 
 And can update slack group membership to match:
-![[Pasted image 20241213201445.png|300]]
+
+<img src="README_img/opsgenie-sync-slack-group.png" alt="Opsgenie sync slack group" width="400">
 
 ## How it Works
 Internally, it checks a list of Opsgenie support schedules, and for each one will:

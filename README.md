@@ -24,9 +24,11 @@ You need 3 things:
 	- Optional, if not provided doesn't update group
 
 **1. Get Opsgenie Schedule**
+
 Copy paste your schedule name from Opsgenie's [All schedules page](https://constantinople.app.opsgenie.com/settings/schedule/schedule-list)
 
 **2. Get slack channel ID**
+
 *Optional, this is only if you want messages for who's on support*
 Easiest way is to right click chat, copy chat link, take the ID from the end e.g. #squad-platform has the ID `C05HVGL6CF5` and link
 
@@ -35,9 +37,11 @@ You can use channel name, but that is slow as incurs a large paginated search be
 https://constantinoplehq.slack.com/archives/C05HVGL6CF5
 
 **3. Add Opsgenie Sync bot to chat**
+
 In the chat type `@Opsgenie Sync`, send and add to channel
 
 **3. Setup Support group**
+
 *Optional, this is only if you want a @support_group handle to tag your person on support*
 [Create a user group | Slack](https://slack.com/intl/en-au/help/articles/212906697-Create-a-user-group)
 

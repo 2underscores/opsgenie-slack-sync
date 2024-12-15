@@ -1,0 +1,95 @@
+{
+  "version": "38.0.1",
+  "artifacts": {
+    "OpsgenieSlackSyncStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "OpsgenieSlackSyncStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "OpsgenieSlackSyncStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "OpsgenieSlackSyncStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/02b8608a0f2d46c3fb836e26ae50563168ca9034c9fb6e72dbe692d5013acc9e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "OpsgenieSlackSyncStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "OpsgenieSlackSyncStack.assets"
+      ],
+      "metadata": {
+        "/OpsgenieSlackSyncStack/OpsgenieSlackSyncFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OpsgenieSlackSyncFunctionServiceRole42543F93"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/OpsgenieSlackSyncFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OpsgenieSlackSyncFunctionEEB96698"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/ScheduleRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ScheduleRuleDA5BD877"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/ScheduleRule/AllowEventRuleOpsgenieSlackSyncStackOpsgenieSlackSyncFunction5E672B61": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ScheduleRuleAllowEventRuleOpsgenieSlackSyncStackOpsgenieSlackSyncFunction5E672B61FDF396E0"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/OpsgenieSlackSyncStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "OpsgenieSlackSyncStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

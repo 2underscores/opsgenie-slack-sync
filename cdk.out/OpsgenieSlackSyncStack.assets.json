@@ -1,0 +1,32 @@
+{
+  "version": "38.0.1",
+  "files": {
+    "23debb1c5e9644436619b30b7e1d313ea1cb969b8d2b6b4fa514d5d9dbeee188": {
+      "source": {
+        "path": "asset.23debb1c5e9644436619b30b7e1d313ea1cb969b8d2b6b4fa514d5d9dbeee188",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "23debb1c5e9644436619b30b7e1d313ea1cb969b8d2b6b4fa514d5d9dbeee188.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "02b8608a0f2d46c3fb836e26ae50563168ca9034c9fb6e72dbe692d5013acc9e": {
+      "source": {
+        "path": "OpsgenieSlackSyncStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "02b8608a0f2d46c3fb836e26ae50563168ca9034c9fb6e72dbe692d5013acc9e.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

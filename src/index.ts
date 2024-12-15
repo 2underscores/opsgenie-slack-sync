@@ -22,6 +22,24 @@ const RosterSlackMappings: ScheduleToSlackGroupChannel[] = [
   // // Other squad configs below here
 ]
 
+// Lambda handler
+export const handler = async (event: any, context: any) => {
+  try {
+    const results = await syncSlackWithOpsgenie(RosterSlackMappings);
+    console.log({ results });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ results }),
+    };
+  } catch (error) {
+    console.error('Error in Lambda execution:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Internal server error' }),
+    };
+  }
+};
+
 // Local trigger handler
 if (import.meta.url === new URL(import.meta.url).href) {
   const results = await syncSlackWithOpsgenie(RosterSlackMappings);

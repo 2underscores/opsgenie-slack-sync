@@ -1,8 +1,6 @@
-import * as url from "url";
 import { OpsgenieService } from "./services/opsgenie.js"
 import { SlackService } from './services/slack.js';
 import { config } from './config.js';
-import { channel } from "diagnostics_channel";
 
 export interface ScheduleToSlackGroupChannel {
     opsgenieScheduleName: string, /** Schedule to pull oncall user from */

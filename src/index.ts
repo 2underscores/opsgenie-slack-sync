@@ -1,4 +1,4 @@
-import { syncSlackWithOpsgenie, type ScheduleToSlackGroupChannel } from "./src/syncOpsgenieSlack.js";
+import { syncSlackWithOpsgenie, type ScheduleToSlackGroupChannel } from "./syncOpsgenieSlack.js";
 
 const RosterSlackMappings: ScheduleToSlackGroupChannel[] = [
   // Actual Platform squad alerting. Sends message and updates support group
@@ -22,4 +22,20 @@ const RosterSlackMappings: ScheduleToSlackGroupChannel[] = [
   // // Other squad configs below here
 ]
 
-await syncSlackWithOpsgenie(RosterSlackMappings);
+// Lambda handler
+export const handler = async (event: any) => {
+  console.log("Lambda triggered:", event);
+  const results = await syncSlackWithOpsgenie(RosterSlackMappings);
+  const body = JSON.stringify({ results });
+  return {
+    statusCode: 200,
+    body: body,
+  };
+};
+
+// Local trigger handler
+if (import.meta.url === new URL(import.meta.url).href) {
+  const results = await syncSlackWithOpsgenie(RosterSlackMappings);
+  console.log({ results });
+  const body = JSON.stringify({ results }); // Make sure works for lambda
+}

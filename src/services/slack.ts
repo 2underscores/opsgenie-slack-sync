@@ -1,4 +1,4 @@
-import { WebClient } from '@slack/web-api';
+import { WebClient, type ChatPostMessageResponse, type UsergroupsUsersUpdateResponse } from '@slack/web-api';
 
 export class SlackService {
   private client: WebClient;
@@ -7,7 +7,7 @@ export class SlackService {
     this.client = new WebClient(token);
   }
 
-  async sendMessage(channelId: string, message: string): Promise<void> {
+  async sendMessage(channelId: string, message: string): Promise<ChatPostMessageResponse> {
     try {
       const resp = await this.client.chat.postMessage({
         channel: channelId,
@@ -23,9 +23,7 @@ export class SlackService {
           }
         ]
       });
-      console.log({ resp });
-      console.log('?');
-
+      return resp
     } catch (error) {
       console.error('Error sending Slack message:', error);
       throw error;
@@ -35,12 +33,13 @@ export class SlackService {
   async setUserGroupMembers(
     userGroupId: string,
     userIds: string[]
-  ): Promise<void> {
+  ): Promise<UsergroupsUsersUpdateResponse> {
     try {
-      await this.client.usergroups.users.update({
+      const resp = await this.client.usergroups.users.update({
         usergroup: userGroupId,
         users: userIds.join(',')
       });
+      return resp
     } catch (error) {
       console.error('Error updating user group:', error);
       throw error;
@@ -99,10 +98,10 @@ export class SlackService {
         if (!response.channels) {
           return undefined;
         }
-        
-        
+
+
         // Find the channel matching the given name
-        console.log({channelNames: response.channels.map(ch => ch.name)});
+        console.log({ channelNames: response.channels.map(ch => ch.name) });
         const channel = response.channels.find(ch => ch.name === channelName);
 
         if (channel) {

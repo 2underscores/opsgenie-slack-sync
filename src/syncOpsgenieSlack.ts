@@ -2,6 +2,7 @@ import * as url from "url";
 import { OpsgenieService } from "./services/opsgenie.js"
 import { SlackService } from './services/slack.js';
 import { config } from './config.js';
+import { channel } from "diagnostics_channel";
 
 export interface ScheduleToSlackGroupChannel {
     opsgenieScheduleName: string, /** Schedule to pull oncall user from */
@@ -33,13 +34,14 @@ export async function syncSlackWithOpsgenie(rosterSlackMappings: ScheduleToSlack
         }
         // Update support user group if supplied and user found. Otherwise leave blank
         let groupId = null
+        let groupUpdateResponse = null
         if (scheduleMap.slackGroupName) {
             groupId = await slack.getUserGroupIdByName(scheduleMap.slackGroupName)
             if (!groupId) {
                 console.error({ message: `Group ID not found for group name: ${scheduleMap.slackGroupName}` });
             }
             if (groupId && userId) {
-                await slack.setUserGroupMembers(groupId, [userId]);
+                groupUpdateResponse = await slack.setUserGroupMembers(groupId, [userId]);
             }
         }
         // If Channel Name and no ID given, Map name to ID
@@ -52,11 +54,16 @@ export async function syncSlackWithOpsgenie(rosterSlackMappings: ScheduleToSlack
             }
         }
         // Send message to slack channel if provided
+        let messageSendResponse
         if (scheduleMap.slackChannelId) {
             const userTag = userId ? `<@${userId}>` : `Nobody`
-            const supportGroupTag = groupId ? `<!subteam^${groupId}>` : 'support'
+            const scheduleLink = `https://constantinople.app.opsgenie.com/settings/schedule/detail/${schedule.id}`
+            const supportGroupTag = groupId ?
+                `<!subteam^${groupId}> (<${scheduleLink}|schedule>)` :
+                `<${scheduleLink}|${scheduleMap.opsgenieScheduleName}>`
             const message = `${userTag} is on ${supportGroupTag} today`;
-            await slack.sendMessage(scheduleMap.slackChannelId, message);
+            messageSendResponse = await slack.sendMessage(scheduleMap.slackChannelId, message);
         }
+        return { messageSendResponse, groupUpdateResponse }
     }
 }

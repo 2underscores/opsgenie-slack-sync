@@ -13,6 +13,7 @@ export async function syncSlackWithOpsgenie(rosterSlackMappings: ScheduleToSlack
     const slack = new SlackService(config.slackKey);
     const opsgenie = new OpsgenieService(config.opsgenieKey)
     // For each schedule given, update slack group (if provided) and send message to channel (if provided)
+    const results = []
     for (const scheduleMap of rosterSlackMappings) {
         console.log({ schedule: scheduleMap.opsgenieScheduleName });
         // Get email of user oncall for schedule
@@ -62,6 +63,9 @@ export async function syncSlackWithOpsgenie(rosterSlackMappings: ScheduleToSlack
             const message = `${userTag} is on ${supportGroupTag} today`;
             messageSendResponse = await slack.sendMessage(scheduleMap.slackChannelId, message);
         }
-        return { messageSendResponse, groupUpdateResponse }
+        const result = { schedule, messageSendResponse, groupUpdateResponse }
+        console.log({ ...result });
+        results.push(result)
     }
+    return results
 }

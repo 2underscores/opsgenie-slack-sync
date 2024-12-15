@@ -5,9 +5,12 @@
   "description": "Integrate opsgenie roster with daily slack message and sync slack support group membership",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "sync": "tsx src/index.ts",
-    "test:sync:watch": "nodemon --watch '**/*.ts' --exec 'tsx' src/index.ts"
+    "build:clean": "rm -rf dist",
+    "build:bundle": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.js",
+    "build:zip": "zip dist/lambda.zip dist/index.js",
+    "build": "npm run build:clean && npm run build:bundle && npm run build:zip",
+    "run:sync": "tsx src/index.ts",
+    "run:sync:watch": "nodemon --watch '**/*.ts' --exec 'tsx' src/index.ts"
   },
   "dependencies": {
     "@slack/web-api": "^7.8.0",
@@ -20,6 +23,7 @@
     "@types/node": "^20.10.0",
     "aws-cdk-lib": "^2.173.1",
     "constructs": "^10.4.2",
+    "esbuild": "^0.24.0",
     "nodemon": "^3.1.7",
     "tsx": "^4.19.2",
     "typescript": "^5.3.2"

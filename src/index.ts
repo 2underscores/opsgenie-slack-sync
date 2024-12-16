@@ -8,11 +8,12 @@ const RosterSlackMappings: ScheduleToSlackGroupChannel[] = [
   },
   {
     opsgenieScheduleName: 'Platform_schedule',
-    slackChannelId: 'C05MD9Y10P9', 
+    slackChannelId: 'C05MD9Y10P9',
     slackGroupName: 'Platform Support',
   },
 ];
 
+// Lambda run
 export const handler = async (event: any) => {
   console.log('Handler started');
   try {
@@ -28,3 +29,9 @@ export const handler = async (event: any) => {
     throw error;
   }
 };
+
+// // Local run (removed, only run if you know how to not spam slack (change RosterSlackMappings))
+// if (import.meta.url.endsWith(process.argv[1])) {
+//   syncSlackWithOpsgenie(RosterSlackMappings)
+//     .then(results => { console.log('Sync completed:', results); })
+// }

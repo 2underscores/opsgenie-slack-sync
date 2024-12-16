@@ -75,4 +75,9 @@ const RosterSlackMappings: ScheduleToSlackGroupChannel[] = [
 await syncSlackWithOpsgenie(RosterSlackMappings);
 ```
 ### Redeploy
-- TBD
+TODO: CICD it, current approach is ew. But what you do is:
+ 
+1. `npm run build`
+2. upload `dist/lambda.zip` to the lambda (ask jez)
+
+DON'T run locally with `npm run run:sync`, this'll spam slack. Have disabled local run fully, but can be done by just adding the function in the lambda handler to local one. 
